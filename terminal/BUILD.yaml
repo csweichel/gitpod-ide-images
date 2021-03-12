@@ -1,0 +1,20 @@
+packages:
+    - name: docker
+      type: docker
+      deps:
+        - :app
+      srcs:
+        - supervisor-ide-config.json
+        - startup.sh
+      config:
+        dockerfile: Dockerfile
+        image: 
+          - csweichel/gitpod-ide-image:docker
+    - name: app
+      type: yarn
+      config:
+          packaging: archive
+      srcs:
+        - index.html
+        - yarn.lock
+        - package.json
