@@ -9,7 +9,7 @@ packages:
       config:
         dockerfile: Dockerfile
         image: 
-          - csweichel/gitpod-ide-image:docker
+          - csweichel/gitpod-ide-image:terminal
     - name: app
       type: yarn
       config:

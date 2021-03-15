@@ -1,0 +1,30 @@
+<!doctype html>
+  <html>
+    <body style="visibility: visible;">
+      <div id="message"></div>
+    </body>
+    <script>
+      window.onload = function() {
+        let msg = document.getElementById("message");
+        msg.innerHTML = "waiting for content";
+
+        const waitUntilReady = function() {
+          fetch(window.location.href+"_supervisor/v1/status/ide/wait/true", {credentials: "include"}).then((resp) => {
+            if (resp.status != 200) {
+              msg.innerHTML = "still waiting ("+resp.status+")";
+              setTimeout(waitUntilReady, 1000);
+              return;
+            }
+
+            msg.innerHTML = "ready";
+            location.href = location.href.replace("https://", "https://webview-");
+          }).catch((err) => {
+            msg.innerHTML = "Error: <br /><pre>"+err+"</pre>";
+            setTimeout(waitUntilReady, 1000);
+          });
+        };
+        waitUntilReady();
+      };
+    </script>
+    <script type="text/javascript" src="/_supervisor/frontend/main.js" charset="utf-8"></script>
+  </html>

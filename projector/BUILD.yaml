@@ -1,0 +1,19 @@
+packages:
+    - name: goland
+      type: docker
+      config:
+        dockerfile: Dockerfile.goland
+        image: 
+          - csweichel/gitpod-ide-image:goland
+    - name: docker
+      type: docker
+      srcs:
+        - supervisor-ide-config.json
+        - startup.sh
+        - index.html
+      deps:
+        - :goland
+      config:
+        dockerfile: Dockerfile
+        image: 
+          - csweichel/gitpod-ide-image:projector
